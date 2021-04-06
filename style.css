@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+  background-color: rgb(13 47 110);
+  color: rgb(243 244 248);
+  font-family: "Roboto", sans-serif;
+}
+#picture_canvas {
+  transform: rotateY(180deg);
+  width: 240px;
+  align-self: center;
+  border: 2px solid;
+  background-color: #c4c4c4;
+  background: url(./head.png) no-repeat center rgba(196, 196, 196, 0.75);
+  background-size: 210px;
+  background-position-y: -32px;
+}
+.flex {
+  display: flex;
+}
+.container {
+  padding: 2% 10%;
+  flex-grow: 1;
+}
+.airline {
+  border: 30px solid #bcbcb2;
+  padding: 2%;
+  color: #423f40;
+  background: #fafafa;
+}
+.col {
+  flex-direction: column;
+}
+.row {
+  flex-direction: row;
+}
+.choice {
+  flex-basis: 100%;
+  border: 2px solid;
+  border-radius: 2%;
+  margin: 1%;
+  height: 250px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  background-color: white;
+}
+.choice:hover {
+  border: 1px solid yellow;
+}
+#airline-choice-success,
+#flight-choice-success,
+#photo-select {
+  visibility: hidden;
+}
+.gesture {
+  position: absolute;
+  top: 200px;
+  left: 0px;
+  color: #f5fafa;
+}
+#dataPlotContainer {
+  flex-grow: 1;
+  padding: 2% 4%;
+  align-items: center;
+  align-self: center;
+}
+.basl {
+  color: #34de3b;
+}
+.southwest {
+  background: url(./southwest.png) no-repeat center #ffffff;
+  background-size: contain;
+}
+.alaska {
+  background: url(./alaska.png) no-repeat center #ffffff;
+  background-size: contain;
+}
+.hawaiian {
+  background: url(./hawaiian.png) no-repeat center #ffffff;
+  background-size: contain;
+}
+.line {
+  background-color: #a6b5f7;
+  height: 40px;
+  width: 100%;
+}
+.center {
+  text-align: center;
+}
+#photo_container {
+  padding: 2% 4%;
+  flex-grow: 1;
+}
+.blue {
+  background: #a6b5f7;
+  color: #0d2f6e;
+}
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60% {
+    transform: rotate(-25deg);
+  }
+  40%,
+  80% {
+    transform: rotate(10deg);
+  }
+}
+@media (max-width: 500px) {
+  h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1em;
+  }
+  h3 {
+    font-size: 0.75em;
+  }
+  .choice {
+    height: 100px;
+  }
+  .flex {
+    flex-wrap: wrap;
+  }
+  #picture_canvas {
+    width: 190px;
+  }
+}
