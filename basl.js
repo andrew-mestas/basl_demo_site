@@ -106,8 +106,9 @@
                 "background-color": this.pointerColor,
                 "border-radius": "50%",
                 "z-index": 1,
-                left: `${this.pointerLocation[0]}px`,
-                top: `${this.pointerLocation[1]}px`,
+                "transition": "top 0.15s, left 0.15s",
+                left: `${Math.floor(this.pointerLocation[0] / videoElement.width * window.innerWidth)}px`,
+                top: `${Math.floor(this.pointerLocation[1] / videoElement.height * window.innerHeight)}px`,
               };
             },
             circleConfidence() {
@@ -331,7 +332,7 @@
               instance.recordingData.length <= instance.captureTimeFrameLength
             ) {
               instance.recordingData.push(
-                predictions[0].landmarks[LANDMARKS.THUMB_POINT]
+                predictions[0].landmarks[LANDMARKS.MIDDLE_FIRST_JOINT]
               );
             }
             if (
@@ -347,7 +348,7 @@
                 instance.predictionText = "Idle";
               }
             }
-            const palm = predictions[0].landmarks[LANDMARKS.THUMB_POINT];
+            const palm = predictions[0].landmarks[LANDMARKS.MIDDLE_FIRST_JOINT];
             instance.pointerLocation = palm;
 
             if (
