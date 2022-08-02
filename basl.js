@@ -35,8 +35,6 @@
       document.body.appendChild(button);
       let buttonOn = true;
 
-      videoElement.width = 1280;
-      videoElement.height = 720;
       videoElement.autoplay = true;
 
       function loadScript(url) {
@@ -78,7 +76,7 @@
             runGestureModel: false,
             captureTimeFrameLength: 21,
             normalizeData: true,
-            showPlotAfterRecognition: false,
+            showPlotAfterRecognition: true,
             predictedGesture: {
               circle: 0.0,
               idle: 0.0,
@@ -106,19 +104,18 @@
                 "background-color": this.pointerColor,
                 "border-radius": "50%",
                 "z-index": 1,
-                left: `${this.pointerLocation[0]}px`,
-                top: `${this.pointerLocation[1]}px`,
+                "transition": "top 0.15s, left 0.15s",
+                left: `${Math.floor(this.pointerLocation[0] / videoElement.width * window.innerWidth)}px`,
+                top: `${Math.floor(this.pointerLocation[1] / videoElement.height * window.innerHeight)}px`,
               };
             },
             circleConfidence() {
-              return `Circle: ${
-                parseFloat(this.predictedGesture.circle).toFixed(2) + "%"
-              }`;
+              return `Circle: ${parseFloat(this.predictedGesture.circle).toFixed(2) + "%"
+                }`;
             },
             idleConfidence() {
-              return `Idle ${
-                parseFloat(this.predictedGesture.idle).toFixed(2) + "%"
-              }`;
+              return `Idle ${parseFloat(this.predictedGesture.idle).toFixed(2) + "%"
+                }`;
             },
           },
           methods: {
@@ -155,9 +152,9 @@
             getTwoDimensionData: function () {
               return this.normalizeData
                 ? this.recordingData.map((coord) => [
-                    scale(0, 1280, 0.0, 1.0, coord[0]),
-                    scale(0, 720, 0.0, 1.0, coord[1]),
-                  ])
+                  scale(0, videoElement.width, 0.0, 1.0, coord[0]),
+                  scale(0, videoElement.height, 0.0, 1.0, coord[1]),
+                ])
                 : this.recordingData;
             },
             getRecordedDataPoints: function () {
@@ -331,7 +328,7 @@
               instance.recordingData.length <= instance.captureTimeFrameLength
             ) {
               instance.recordingData.push(
-                predictions[0].landmarks[LANDMARKS.THUMB_POINT]
+                predictions[0].landmarks[LANDMARKS.MIDDLE_FIRST_JOINT]
               );
             }
             if (
@@ -347,25 +344,26 @@
                 instance.predictionText = "Idle";
               }
             }
-            const palm = predictions[0].landmarks[LANDMARKS.THUMB_POINT];
+            const thumb = predictions[0].landmarks[LANDMARKS.THUMB_POINT];
+            const palm = predictions[0].landmarks[LANDMARKS.MIDDLE_FIRST_JOINT]
             instance.pointerLocation = palm;
 
             if (
-              !isWithin(instance.options.boundElement, palm[0], palm[1]) &&
+              !isWithin(instance.options.boundElement, thumb[0], thumb[1]) &&
               pointsTouch(
                 predictions[0].landmarks,
                 LANDMARKS.INDEX_POINT,
                 LANDMARKS.THUMB_POINT
               )
             ) {
-              onClickDebounce(document.elementFromPoint(palm[0], palm[1]));
+              onClickDebounce(document.elementFromPoint(thumb[0], thumb[1]));
             } else if (
-              isWithin(instance.options.boundElement, palm[0], palm[1])
+              isWithin(instance.options.boundElement, thumb[0], thumb[1])
             ) {
               instance.options.boundElement.style.border = "1px solid yellow";
               instance.pointerSize -= 1;
               if (instance.pointerSize < 10) {
-                document.elementFromPoint(palm[0], palm[1]).click();
+                document.elementFromPoint(thumb[0], thumb[1]).click();
               }
             } else {
               instance.pointerSize = 48;
@@ -374,27 +372,39 @@
           }
         }
 
-        const camera = new Camera(videoElement, {
-          onFrame: async () => {
-            if (buttonOn) {
-              document.body.removeChild(button);
-              buttonOn = false;
-            }
-            main();
-            if (instance.options.outputElement) {
-              instance.options.outputElement.innerHTML =
-                instance.predictionText;
-            }
-          },
-          width: 1280,
-          height: 720,
-        });
-
         async function start() {
           try {
             instance.loadNetwork();
             await tf.setBackend("webgl");
             instance.handModel = await handpose.load();
+            let constraints = {
+              audio: false,
+              video: {
+                width: { ideal: 1920 },
+                height: { ideal: 1080 }
+              }
+            };
+
+            let stream = await navigator.mediaDevices.getUserMedia(constraints);
+            let stream_settings = stream.getVideoTracks()[0].getSettings();
+
+            videoElement.width = stream_settings.width;
+            videoElement.height = stream_settings.height;
+            const camera = new Camera(videoElement, {
+              onFrame: async () => {
+                if (buttonOn) {
+                  document.body.removeChild(button);
+                  buttonOn = false;
+                }
+                main();
+                if (instance.options.outputElement) {
+                  instance.options.outputElement.innerHTML =
+                    instance.predictionText;
+                }
+              },
+              width: stream_settings.width,
+              height: stream_settings.height,
+            });
             camera.start();
           } catch (e) {
             console.log(e);

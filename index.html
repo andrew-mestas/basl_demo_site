@@ -56,7 +56,7 @@
       </svg>
     </a>
     <div id="fullpage">
-      <div class="section">
+      <div class="section mobile-hidden">
         <div class="container">
           <div class="center">
             <h1>Welcome to <span class="basl">BASL</span></h1>
@@ -77,7 +77,7 @@
           </div>
         </div>
       </div>
-      <div class="section">
+      <div class="section mobile-hidden">
         <div class="container">
           <h1>BASL Demonstration</h1>
           <h2>
@@ -105,7 +105,7 @@
           </h2>
         </div>
       </div>
-      <div class="section">
+      <div class="section mobile-hidden">
         <div class="container">
           <h1>
             Task One: You are flying with Hawaiian Airlines. Follow the
@@ -140,7 +140,7 @@
           </div>
         </div>
       </div>
-      <div class="section">
+      <div class="section mobile-hidden">
         <div class="container">
           <h1>Task Two: Print your boarding pass.</h1>
           <div class="airline">
@@ -175,7 +175,7 @@
       </div>
       <div class="section">
         <div class="container">
-          <h1>Task Three: Capture your photo for identity confirmation.</h1>
+          <h1 class="mobile-hidden">Task Three: Capture your photo for identity confirmation.</h1>
           <div class="airline">
             <div class="flex col">
               <h1>
@@ -193,6 +193,7 @@
                     gesture until your image is captured.
                   </h2>
                 </div>
+                <div id="prediction"></div>
               </div>
               <canvas
                 id="picture_canvas"
@@ -229,6 +230,7 @@
       const photoSuccess = document.getElementById("photo_success");
       const photoSelect = document.getElementById("photo-select");
       const gestureModelMessage = document.getElementById("gesture-message");
+      const predictionElement = document.getElementById("prediction")
 
       let airlineHit = false;
       let flightHit = false;
@@ -255,6 +257,7 @@
             );
           }, 1000);
         },
+        plotElement: predictionElement
       };
 
       BASL_WEB(options);
