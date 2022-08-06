@@ -2,8 +2,12 @@
 #basl_button {
   font-family: "Press Start 2P", cursive;
 }
+
 @media only screen and (max-width: 600px) {
   .mobile-hidden {
     display: none !important;
+  }
+  .mobile-show {
+    display: block;
   }
 }

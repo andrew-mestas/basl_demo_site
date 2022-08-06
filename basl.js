@@ -73,7 +73,7 @@
           el: "#basl_app",
           data: {
             recordingData: [],
-            runGestureModel: false,
+            runGestureModel: true,
             captureTimeFrameLength: 21,
             normalizeData: true,
             showPlotAfterRecognition: true,
@@ -339,7 +339,7 @@
               if (instance.predictedGesture.circle > 0.6) {
                 instance.predictionText = "Circle";
                 instance.options.onPredictionComplete(videoElement);
-                instance.runGestureModel = false;
+                // instance.runGestureModel = false;
               } else {
                 instance.predictionText = "Idle";
               }
