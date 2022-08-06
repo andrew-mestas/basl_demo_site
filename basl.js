@@ -22,7 +22,7 @@
       button.disabled = true;
       button.innerHTML = "Getting dependencies<br>for BASL...";
       button.style.position = "absolute";
-      button.style.top = "0";
+      button.style.top = "50px";
       button.style.right = "0";
       button.style.padding = "16px";
       const appElement = document.createElement("div");
@@ -307,7 +307,7 @@
         const onClickDebounce = debounce(onClick, 250, true);
 
         var isWithin = function (elem, x, y) {
-          if (elem === null) return false;
+          if (!elem) return false;
           var bounding = elem.getBoundingClientRect();
           return (
             y >= bounding.top &&
@@ -367,7 +367,9 @@
               }
             } else {
               instance.pointerSize = 48;
-              instance.options.boundElement.style.border = "1px solid";
+              if (instance.options.boundElement) {
+                instance.options.boundElement.style.border = "1px solid";
+              }
             }
           }
         }

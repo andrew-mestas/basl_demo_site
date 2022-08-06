@@ -18,6 +18,7 @@
   <link rel="icon" href="./favicon.ico" />
   <link rel="stylesheet" href="./basl.css" />
   <script src="basl.js"></script>
+  <base href="/basl_demo_site/">
 </head>
 
 <body>
@@ -51,8 +52,12 @@
         class="octo-body"></path>
     </svg>
   </a>
+  <nav>
+    <a class="selected" href="./">Desktop Demo</a> |
+    <a href="./mobile">Mobile Demo</a>
+  </nav>
   <div id="fullpage">
-    <div class="section mobile-hidden">
+    <div class="section">
       <div class="container">
         <div class="center">
           <h1>Welcome to <span class="basl">BASL</span></h1>
@@ -73,7 +78,7 @@
         </div>
       </div>
     </div>
-    <div class="section mobile-hidden">
+    <div class="section">
       <div class="container">
         <h1>BASL Demonstration</h1>
         <h2>
@@ -101,7 +106,7 @@
         </h2>
       </div>
     </div>
-    <div class="section mobile-hidden">
+    <div class="section">
       <div class="container">
         <h1>
           Task One: You are flying with Hawaiian Airlines. Follow the
@@ -136,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div class="section mobile-hidden">
+    <div class="section">
       <div class="container">
         <h1>Task Two: Print your boarding pass.</h1>
         <div class="airline">
@@ -171,25 +176,28 @@
     </div>
     <div class="section">
       <div class="container">
-        <h1 class="mobile-hidden">Task Three: Capture your photo for identity confirmation.</h1>
+        <h1>Task Three: Capture your photo for identity confirmation.</h1>
         <div class="airline">
           <div class="flex col">
-            <h1 class="mobile-hidden">
+            <h1>
               <i class="fas fa-plane-departure"></i> Identity Confirmation
             </h1>
-            <div class="line mobile-hidden"></div>
-            <div class="flex ">
+            <div class="line"></div>
+            <div class="flex">
               <div class="container">
-                <!-- <h2>
-                    <strong>Step One</strong>: Please make sure your face is in
-                    full view of the camera.
-                  </h2> -->
                 <h2>
-                  <strong>As you move your palm coordinate data is passed to the trained neural net which has basic
-                    recognition of idle vs circular gestures.
+                  <strong>Step One</strong>: Please make sure your face is in
+                  full view of the camera.
                 </h2>
-                <div id="prediction-text"></div>
+                <h2>
+                  <strong>Step Two</strong>: Move your palm in a clockwise
+                  gesture until your image is captured.
+                </h2>
+                <h2>As you move your palm coordinate data is passed to the trained neural net which has basic
+                  recognition of idle vs circular gestures.</h2>
               </div>
+              <div id="prediction"></div>
+              <div id="prediction-text"></div>
             </div>
             <canvas
               id="picture_canvas"
@@ -202,42 +210,7 @@
         </div>
       </div>
     </div>
-    <div class="section mobile-show">
-      <div class="container">
-        <div id="prediction"></div>
-        <div class="center">
-          <h1>Welcome to <span class="basl">BASL</span></h1>
-          <h1>(Blended Assistive Signaling Language)</h1>
-          <h2>
-            Due to the pandemic, there is a greater need for touchless
-            interfaces to prevent the spread of surface dwelling bacterial
-            viruses.
-          </h2>
-          <h2>
-            <span class="basl">BASL</span> is a motion and gesture tracking
-            library which enables touchless interaction on most devices. I’ve
-            applied a gesture recognition model that I’ve trained using
-            <span class="basl">BASL</span>'s integrated training environment
-          </h2>
-          <hr />
-        </div>
-      </div>
-    </div>
-    <div class="section mobile-show">
-      <div class="container center">
-        <h2>
-          You have successfully completed the gesture recognition task with
-          <span class="basl">BASL</span> on mobile.
-          <h2>
-            Thank you for taking the time to get aqcuainted with
-            <span class="basl">BASL</span>. If you would like to further the
-            research behind this project, please contact the creator: Andrew
-            Mestas at andrew.mestas.dev@gmail.com.
-          </h2>
-        </h2>
-      </div>
-    </div>
-    <div class="section mobile-hidden">
+    <div class="section">
       <div class="container center">
         <h2>
           You have successfully completed all 3 tasks using
@@ -331,13 +304,14 @@
       },
       onLeave: function (origin, destination, direction) {
         if (destination.index === 4) {
-          // if (BASL_instance.runGestureModel) {
-          // BASL_instance.runGestureModel = false;
-          // }
+          if (BASL_instance.runGestureModel) {
+            BASL_instance.runGestureModel = false;
+          }
         }
       },
       afterResponsive: function (isResponsive) {
         isMobileMode = isResponsive;
+        console.log('isMobile?', isMobileMode)
       },
     });
   </script>
