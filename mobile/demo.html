@@ -6,11 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BASL</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.extensions.min.js"></script>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.css" />
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
@@ -101,34 +96,11 @@
             },
             plotElement: predictionElement,
             outputElement: predictionElementText,
+            runGestureModelOnStart: true,
         };
 
         BASL_WEB(options);
 
-        new fullpage("#fullpage", {
-            licenseKey: "FA3B7941-EFDD488D-8B68894E-D0422819",
-            continuousVertical: true,
-            fitToSection: true,
-            responsiveWidth: 600,
-            responsiveHeight: 400,
-            afterLoad: function (origin, destination, direction) {
-                if (destination.index === 4) {
-                    if (!BASL_instance.runGestureModel) {
-                        BASL_instance.runGestureModel = true;
-                    }
-                }
-            },
-            onLeave: function (origin, destination, direction) {
-                if (destination.index === 4) {
-                    // if (BASL_instance.runGestureModel) {
-                    // BASL_instance.runGestureModel = false;
-                    // }
-                }
-            },
-            afterResponsive: function (isResponsive) {
-                isMobileMode = isResponsive;
-            },
-        });
     </script>
 </body>
 

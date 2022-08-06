@@ -73,7 +73,7 @@
           el: "#basl_app",
           data: {
             recordingData: [],
-            runGestureModel: true,
+            runGestureModel: false,
             captureTimeFrameLength: 21,
             normalizeData: true,
             showPlotAfterRecognition: true,
@@ -93,6 +93,7 @@
               onPredictionComplete: options.onPredictionComplete,
               plotElement: options.plotElement,
               outputElement: options.outputElement,
+              runGestureModelOnStart: options.runGestureModelOnStart || false
             },
           },
           computed: {
@@ -408,6 +409,9 @@
               height: stream_settings.height,
             });
             camera.start();
+            if (instance.options.runGestureModelOnStart) {
+              instance.runGestureModel = true
+            }
           } catch (e) {
             console.log(e);
             button.innerHTML =

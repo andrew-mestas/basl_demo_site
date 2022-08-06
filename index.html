@@ -94,8 +94,8 @@
           You will be completing three check-in tasks using these gestures:
         </h2>
         <h3>1. Choose an airline. (Pinch)</h3>
-        <h3>2. Print your boarding pass. (Hover)</h3>
-        <h3>3. Take your photo. (Motion gesture)</h3>
+        <!-- <h3>2. Print your boarding pass. (Hover)</h3> -->
+        <h3>2. Take your photo. (Motion gesture)</h3>
         <hr />
         <h2>
           To begin, click "Start BASL". Once your video appears, please scroll
@@ -141,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div class="section">
+    <!-- <div class="section">
       <div class="container">
         <h1>Task Two: Print your boarding pass.</h1>
         <div class="airline">
@@ -173,10 +173,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="section">
       <div class="container">
-        <h1>Task Three: Capture your photo for identity confirmation.</h1>
+        <h1>Task Two: Capture your photo for identity confirmation.</h1>
         <div class="airline">
           <div class="flex col">
             <h1>
@@ -213,7 +213,7 @@
     <div class="section">
       <div class="container center">
         <h2>
-          You have successfully completed all 3 tasks using
+          You have successfully completed 2 tasks using
           <span class="basl">BASL</span>.
           <h2>
             Thank you for taking the time to get aqcuainted with
@@ -243,12 +243,12 @@
     const airlineChoiceSuccess = document.getElementById(
       "airline-choice-success"
     );
-    const flightChoice = document.getElementById("flight-select");
-    const flightChoiceSuccess = document.getElementById(
-      "flight-choice-success"
-    );
+    // const flightChoice = document.getElementById("flight-select");
+    // const flightChoiceSuccess = document.getElementById(
+    //   "flight-choice-success"
+    // );
     const options = {
-      boundElement: flightChoice,
+      // boundElement: flightChoice,
       onPredictionComplete: (videoFrame) => {
         photoSelect.style.visibility = "visible";
         setTimeout(() => {
@@ -278,16 +278,16 @@
       airlineHit = true;
     });
 
-    flightChoice.addEventListener("click", () => {
-      flightChoice.style.border = "2px solid yellow";
-      flightChoiceSuccess.style.visibility = "visible";
-      if (!flightHit) {
-        setTimeout(() => {
-          fullpage_api.moveSectionDown();
-        }, 5000);
-      }
-      flightHit = true;
-    });
+    // flightChoice.addEventListener("click", () => {
+    //   flightChoice.style.border = "2px solid yellow";
+    //   flightChoiceSuccess.style.visibility = "visible";
+    //   if (!flightHit) {
+    //     setTimeout(() => {
+    //       fullpage_api.moveSectionDown();
+    //     }, 5000);
+    //   }
+    //   flightHit = true;
+    // });
 
     new fullpage("#fullpage", {
       licenseKey: "FA3B7941-EFDD488D-8B68894E-D0422819",
@@ -296,14 +296,14 @@
       responsiveWidth: 600,
       responsiveHeight: 400,
       afterLoad: function (origin, destination, direction) {
-        if (destination.index === 4) {
+        if (destination.index === 3) {
           if (!BASL_instance.runGestureModel) {
             BASL_instance.runGestureModel = true;
           }
         }
       },
       onLeave: function (origin, destination, direction) {
-        if (destination.index === 4) {
+        if (destination.index === 3) {
           if (BASL_instance.runGestureModel) {
             BASL_instance.runGestureModel = false;
           }
@@ -311,7 +311,6 @@
       },
       afterResponsive: function (isResponsive) {
         isMobileMode = isResponsive;
-        console.log('isMobile?', isMobileMode)
       },
     });
   </script>
