@@ -9,7 +9,7 @@
       canvas.height = 720;
       canvas.style.transform = "rotateY(180deg)";
       canvas.style.position = "absolute";
-      canvas.style.top = "0";
+      canvas.style.bottom = "0";
       canvas.style.right = "0";
       canvas.style.height = "144px";
       canvas.style.width = "256px";
@@ -22,8 +22,8 @@
       button.disabled = true;
       button.innerHTML = "Getting dependencies<br>for BASL...";
       button.style.position = "absolute";
-      button.style.bottom = "20%";
-      button.style.left = "50vw";
+      button.style.top = "0";
+      button.style.right = "0";
       button.style.padding = "16px";
       const appElement = document.createElement("div");
       const pointer = document.createElement("div");

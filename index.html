@@ -190,7 +190,6 @@
                 </h2>
                 <div id="prediction-text"></div>
               </div>
-              <div id="prediction"></div>
             </div>
             <canvas
               id="picture_canvas"
@@ -205,6 +204,7 @@
     </div>
     <div class="section mobile-show">
       <div class="container">
+        <div id="prediction"></div>
         <div class="center">
           <h1>Welcome to <span class="basl">BASL</span></h1>
           <h1>(Blended Assistive Signaling Language)</h1>
@@ -332,7 +332,7 @@
       onLeave: function (origin, destination, direction) {
         if (destination.index === 4) {
           // if (BASL_instance.runGestureModel) {
-            // BASL_instance.runGestureModel = false;
+          // BASL_instance.runGestureModel = false;
           // }
         }
       },
